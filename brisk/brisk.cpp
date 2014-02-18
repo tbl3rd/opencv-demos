@@ -1,0 +1,155 @@
+#include <iomanip>
+#include <iostream>
+#include <opencv2/calib3d/calib3d.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/nonfree/features2d.hpp>
+
+static void showUsage(const char *av0)
+{
+    std::string av0colon(av0);
+    const int width = av0colon.append(": ").size();
+    std::cerr << av0colon << "Use homography and a perspective transform "
+              << std::endl << std::setw(width) << ""
+              << "to locate and outline an object in a scene." << std::endl
+              << std::endl
+              << "Usage: " << av0 << " <object> <scene>" << std::endl
+              << std::endl
+              << "Where: <object> and <scene> are image files." << std::endl
+              << "       <object> has features present in <scene>." << std::endl
+              << "       <scene> is where to search for features" << std::endl
+              << "               from the <object> image." << std::endl
+              << std::endl
+              << "Example: " << av0 << " ../resources/box.png"
+              << " ../resources/box_in_scene.png" << std::endl
+              << std::endl;
+}
+
+// Features in a object image matched to a scene image.
+//
+typedef std::vector<cv::DMatch> Matches;
+
+// The keypoints and descriptors for features in object or scene image i.
+//
+struct Features {
+    const cv::Mat image;
+    std::vector<cv::KeyPoint> keyPoints;
+    cv::Mat descriptors;
+    std::vector<cv::Point2f> locations;
+    Features(const cv::Mat &i): image(i) {}
+};
+
+// Return brute force matches of BRISK features of object in scene.
+//
+static Matches matchFeatures(Features &object, Features &scene)
+{
+    static const int threshold = 70;
+    static const int octaveCount = 4;
+    static const float patternScale = 2.0;
+    cv::BRISK briskFeatures(threshold, octaveCount, patternScale);
+    briskFeatures.detect(object.image, object.keyPoints);
+    briskFeatures.detect(scene.image, scene.keyPoints);
+    //
+    // According to features2d.hpp, this should also work!  =tbl
+    //
+    // briskFeatures(object.image, object.keyPoints, object.descriptors);
+    // briskFeatures(scene.image, scene.keyPoints, scene.descriptors);
+    //
+    briskFeatures.compute(object.image, object.keyPoints, object.descriptors);
+    briskFeatures.compute(scene.image, scene.keyPoints, scene.descriptors);
+    // cv::FlannBasedMatcher matcher;
+    // cv::BFMatcher matcher(cv::NORM_HAMMING);
+    cv::flann::LshIndexParams indexParameters(20, 10, 2);
+    cv::Ptr<cv::flann::IndexParams> pIndexParameters(indexParameters);
+    cv::FlannBasedMatcher matcher(pIndexParameters);
+    //
+    // CV_WRAP FlannBasedMatcher( const Ptr<flann::IndexParams>& indexParams=makePtr<flann::KDTreeIndexParams>(),
+    //                    const Ptr<flann::SearchParams>& searchParams=makePtr<flann::SearchParams>() );
+    //
+    Matches result;
+    matcher.match(object.descriptors, scene.descriptors, result);
+    return result;
+}
+
+// Return image with matches drawn from object to scene in random colors.
+//
+static cv::Mat drawMatches(Features &object, Features &scene,
+                           const Matches &matches)
+{
+    static const cv::Scalar color = cv::Scalar::all(-1);
+    static const std::vector<char> noMask;
+    static const int flags
+        = cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS
+        | cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS;
+    cv::Mat result;
+    cv::drawMatches(object.image, object.keyPoints,
+                    scene.image, scene.keyPoints,
+                    matches, result, color, color, noMask, flags);
+    return result;
+}
+
+// Find the best homography between the object image and the scene image
+// based on the features in matches.
+//
+static cv::Mat findHomography(Features &object, Features &scene,
+                              const Matches &matches)
+{
+    for (int i = 0; i < matches.size(); ++i) {
+        const cv::DMatch &m = matches[i];
+        object.locations.push_back(object.keyPoints[m.queryIdx].pt);
+        scene.locations.push_back(scene.keyPoints[m.trainIdx].pt);
+    }
+    return cv::findHomography(object.locations, scene.locations, cv::RANSAC);
+}
+
+// Use homography to map corners of the object object to corners in the scene
+// based on the features in matches.
+//
+static std::vector<cv::Point2f> findCorners(Features &object, Features &scene,
+                                            const Matches &matches)
+{
+    const cv::Mat homography = findHomography(object, scene, matches);
+    const int x = object.image.size().width;
+    const int y = object.image.size().height;
+    std::vector<cv::Point2f> corners;
+    corners.push_back(cv::Point2f(0, 0));
+    corners.push_back(cv::Point2f(x, 0));
+    corners.push_back(cv::Point2f(x, y));
+    corners.push_back(cv::Point2f(0, y));
+    std::vector<cv::Point2f> result(corners.size());
+    cv::perspectiveTransform(corners, result, homography);
+    const cv::Point2f offset(x, 0);
+    for (int i = 0; i < result.size(); ++i) result[i] += offset;
+    return result;
+}
+
+int main(int ac, char *av[])
+{
+    if (ac == 3) {
+        Features  object(cv::imread(av[1], cv::IMREAD_GRAYSCALE));
+        Features scene(cv::imread(av[2], cv::IMREAD_GRAYSCALE));
+        if (object.image.data && scene.image.data) {
+            std::cout << std::endl << av[0] << ": Press any key to quit."
+                      << std::endl << std::endl;
+            const Matches matches = matchFeatures(object, scene);
+            if (matches.empty()) {
+                std::cerr << av[0] << ": No matches found."
+                          << std::endl << std::endl;
+            } else {
+                cv::Mat image = drawMatches(object, scene, matches);
+                const std::vector<cv::Point2f> corner
+                    = findCorners(object, scene, matches);
+                static const cv::Scalar green(0, 255, 0);
+                static const int thickness = 4;
+                cv::line(image, corner[0], corner[1], green, thickness);
+                cv::line(image, corner[1], corner[2], green, thickness);
+                cv::line(image, corner[2], corner[3], green, thickness);
+                cv::line(image, corner[3], corner[0], green, thickness);
+                cv::imshow("BRISK Matches & Object detection", image);
+                cv::waitKey(0);
+                return 0;
+            }
+        }
+    }
+    showUsage(av[0]);
+    return 1;
+}
