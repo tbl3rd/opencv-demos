@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := videoWrite
+EXECUTABLE := video-write
 ARGS := ../resources/Megamind.avi blue.avi green.avi red.avi
 
 main: $(EXECUTABLE)

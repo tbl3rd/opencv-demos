@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := brightContrast
+EXECUTABLE := contrast
 IMAGEFILE := ../resources/lena.jpg
 
 main: $(EXECUTABLE)

@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := backProject
+EXECUTABLE := back-project
 IMAGEFILE := ../resources/hand_sample2.jpg
 
 main: $(EXECUTABLE)

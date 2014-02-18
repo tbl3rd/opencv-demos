@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := matMaskOperations
+EXECUTABLE := mask
 IMAGEFILE := ../resources/lena.tiff g
 
 main: $(EXECUTABLE)

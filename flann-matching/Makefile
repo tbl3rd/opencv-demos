@@ -12,7 +12,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := flannMatcher
+EXECUTABLE := flann
 IMAGEFILES := ../resources/box.png ../resources/box_in_scene.png
 
 main: $(EXECUTABLE)

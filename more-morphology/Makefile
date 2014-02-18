@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := moreMorphology
+EXECUTABLE := morphology
 IMAGEFILE := ../resources/mandrill.tiff
 
 main: $(EXECUTABLE)

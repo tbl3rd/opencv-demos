@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := erodeDilate
+EXECUTABLE := erode-dilate
 IMAGEFILE := ../resources/lena.jpg
 
 main: $(EXECUTABLE)

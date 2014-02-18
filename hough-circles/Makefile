@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := houghCircles
+EXECUTABLE := hough-circles
 IMAGEFILE := ../resources/board.jpg
 IMAGEFILE := ../resources/prototype.jpg
 

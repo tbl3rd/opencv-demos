@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := basicThreshold
+EXECUTABLE := threshold
 IMAGEFILE := ../resources/chicky_512.png
 
 main: $(EXECUTABLE)

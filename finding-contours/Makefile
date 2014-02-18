@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := findContours
+EXECUTABLE := contours
 IMAGEFILE := ../resources/lena.jpg
 
 main: $(EXECUTABLE)

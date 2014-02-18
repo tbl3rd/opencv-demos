@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := gaussianBlurFilter
+EXECUTABLE := blur
 IMAGEFILE := ../resources/lena.jpg
 
 main: $(EXECUTABLE)

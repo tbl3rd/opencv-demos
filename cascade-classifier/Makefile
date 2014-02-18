@@ -10,7 +10,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := cascadeClassify
+EXECUTABLE := detect
 ARGS := \
 0 \
 ../resources/haarcascade_frontalface_alt.xml \

@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := linearFilters
+EXECUTABLE := linear-filters
 IMAGEFILE := ../resources/mandrill.tiff
 
 main: $(EXECUTABLE)

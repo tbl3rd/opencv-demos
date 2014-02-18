@@ -13,7 +13,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := homographyPerspective
+EXECUTABLE := detect-homography
 IMAGEFILES := ../resources/box.png ../resources/box_in_scene.png
 
 main: $(EXECUTABLE)

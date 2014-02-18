@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := alphaBlend
+EXECUTABLE := alpha-blend
 LOGOS := ../resources/LinuxLogo.jpg ../resources/WindowsLogo.jpg
 
 main: $(EXECUTABLE)

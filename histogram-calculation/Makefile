@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := calculateHistogram
+EXECUTABLE := calculate-histogram
 IMAGEFILE := ../resources/prototype.jpg
 IMAGEFILE := ../resources/lena.jpg
 

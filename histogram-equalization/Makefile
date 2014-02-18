@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := equalizeHistogram
+EXECUTABLE := equalize-histogram
 IMAGEFILE := ../resources/prototype.jpg
 IMAGEFILE := ../resources/lena.jpg
 

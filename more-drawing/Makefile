@@ -9,17 +9,19 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-main: moreDrawing
+EXECUTABLE := ./draw-more
+
+main: $(EXECUTABLE)
 
 test: main
 	DYLD_LIBRARY_PATH=$(INSTALL)/lib:$$DYLD_LIBRARY_PATH \
-	./moreDrawing
+	$(EXECUTABLE)
 
 clean:
-	rm -rf moreDrawing *.dSYM
+	rm -rf $(EXECUTABLE) *.dSYM
 
 debug: main
 	DYLD_LIBRARY_PATH=$(INSTALL)/lib:$$DYLD_LIBRARY_PATH \
-	lldb ./moreDrawing
+	lldb $(EXECUTABLE)
 
 .PHONY: main test clean debug

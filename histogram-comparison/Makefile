@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := compareHistogram
+EXECUTABLE := compare-histogram
 IMAGEFILE := \
 	../resources/hand_sample1.jpg \
 	../resources/hand_sample2.jpg \

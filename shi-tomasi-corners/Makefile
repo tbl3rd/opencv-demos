@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := shiTomasiCorners
+EXECUTABLE := shi-tomasi-corners
 IMAGEFILE := ../resources/prototype.jpg
 IMAGEFILE := ../resources/building.jpg
 

@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := imagePyramids
+EXECUTABLE := pyramids
 IMAGEFILE := ../resources/chicky_512.png
 
 main: $(EXECUTABLE)

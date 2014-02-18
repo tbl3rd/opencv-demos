@@ -10,7 +10,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := fileIo
+EXECUTABLE := store
 
 main: $(EXECUTABLE)
 

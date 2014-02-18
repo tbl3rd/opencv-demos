@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := svmNonlinear
+EXECUTABLE := svm-nonlinear
 
 main: $(EXECUTABLE)
 

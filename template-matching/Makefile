@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := matchTemplate
+EXECUTABLE := match
 IMAGEFILE := ../resources/marilyn-jane.jpg ../resources/jane.jpg
 
 main: $(EXECUTABLE)

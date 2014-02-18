@@ -9,7 +9,7 @@ CXXFLAGS := -g -O0
 CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
-EXECUTABLE := loadAndDisplayImage
+EXECUTABLE := load-display
 IMAGEFILE := ../resources/Twas_Ever_Thus500.jpg
 
 main: $(EXECUTABLE)
