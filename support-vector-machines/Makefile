@@ -1,4 +1,4 @@
-INSTALL := ../opencv/install
+INSTALL := ../../opencv/install
 LIBS := \
 -lopencv_core \
 -lopencv_highgui \
