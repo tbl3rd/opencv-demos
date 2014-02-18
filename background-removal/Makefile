@@ -13,8 +13,8 @@ CXXFLAGS += -I$(INSTALL)/include
 CXXFLAGS += -L$(INSTALL)/lib $(LIBS)
 
 EXECUTABLE := remove-background
-ARGS := 0
 ARGS := ../resources/TownCentreXVID.avi ./output.avi
+ARGS := ../resources/Megamind.avi ./output.avi
 
 main: $(EXECUTABLE)
 
