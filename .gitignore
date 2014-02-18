@@ -1,13 +1,7 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+*.dSYM
+/background-removal/output.avi
+/scale-plot/result.png
+/svm-non-linear/result.png
+/video-write/blue.avi
+/video-write/green.avi
+/video-write/red.avi
