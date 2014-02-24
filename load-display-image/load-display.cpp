@@ -5,7 +5,7 @@
 
 static void dumpBunchOfMats(void)
 {
-    cv::Mat zeros = cv::Mat::zeros(4, 4, CV_8UC(2));
+    cv::Mat zeros = cv::Mat::zeros(2, 4, CV_8UC(1));
     std::cout << "zeros = " << std::endl << " " << zeros << std::endl;
     cv::Mat eyes = cv::Mat::eye(4, 4, CV_8UC(2));
     std::cout << "eyes = " << std::endl << " " << eyes << std::endl;
